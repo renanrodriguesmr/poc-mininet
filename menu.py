@@ -1,5 +1,4 @@
-from tkinter import *
-from tkinter.ttk import *
+from tkinter import Menu, Frame
 from forms import LinkForm, NetworkForm, ControllerForm, HostForm, SwitchForm, APForm, StationForm
 
 class MenuBar:
@@ -10,72 +9,61 @@ class MenuBar:
         menuBar = Menu(self.appplication)
 
         configMenu = Menu(menuBar, tearoff=0)
-        configMenu.add_command(label="New Project", command=self.newProject)
+        configMenu.add_command(label="New Project", command=self._newProject)
         configMenu.add_separator()
-        configMenu.add_command(label="Configure Network", command=self.newNetworkForm)
-        configMenu.add_command(label="New Link", command=self.newLinkOption)
+        configMenu.add_command(label="Configure Network", command=self._newNetworkForm)
+        configMenu.add_command(label="New Link", command=self._newLinkOption)
         configMenu.add_separator()
-        configMenu.add_command(label="Run Project", command=self.run)
+        configMenu.add_command(label="Run Project", command=self._run)
         menuBar.add_cascade(label="Configuration", menu=configMenu)
 
         componentMenu = Menu(menuBar, tearoff=0)
-        componentMenu.add_command(label="New Station", command=self.newStationOption)
-        componentMenu.add_command(label="New AcessPoint", command=self.newAPOption)
+        componentMenu.add_command(label="New Station", command=self._newStationOption)
+        componentMenu.add_command(label="New AcessPoint", command=self._newAPOption)
         componentMenu.add_separator()
-        componentMenu.add_command(label="New Switch", command=self.newSwitchForm)
-        componentMenu.add_command(label="New Host", command=self.newHostForm)
-        componentMenu.add_command(label="New Controller", command=self.newControllerForm)
+        componentMenu.add_command(label="New Switch", command=self._newSwitchForm)
+        componentMenu.add_command(label="New Host", command=self._newHostForm)
+        componentMenu.add_command(label="New Controller", command=self._newControllerForm)
         menuBar.add_cascade(label="Components", menu=componentMenu)
 
         return menuBar
-
-    def run(self):
-        print("run")
-
-    def newProject(self):
-        self.appplication.resetConfig()
-        self.appplication.reloadComponentFrame()
 
     def resetFormFrame(self):
         self.appplication.formFrame.grid_forget()
         self.appplication.formFrame = Frame()
         self.appplication.formFrame.grid(row=0, column=1)
 
-    def donothing(self):
-        self.resetFormFrame()
+    def _run(self):
+        print("_run")
+
+    def _newProject(self):
+        self.appplication.resetConfig()
+        self.appplication.reloadComponentFrame()
     
-    def newNetworkForm(self):
-        self.resetFormFrame()
-        networkForm = NetworkForm(self.appplication)
-        networkForm.createForm(self.appplication.formFrame)
+    def _newNetworkForm(self):
+        self._newForm(NetworkForm)
 
-    def newControllerForm(self):
-        self.resetFormFrame()
-        controllerForm = ControllerForm(self.appplication)
-        controllerForm.createForm(self.appplication.formFrame)
+    def _newControllerForm(self):
+        self._newForm(ControllerForm)
 
-    def newHostForm(self):
-        self.resetFormFrame()
-        hostForm = HostForm(self.appplication)
-        hostForm.createForm(self.appplication.formFrame)
+    def _newHostForm(self):
+        self._newForm(HostForm)
 
-    def newSwitchForm(self):
-        self.resetFormFrame()
-        switchForm = SwitchForm(self.appplication)
-        switchForm.createForm(self.appplication.formFrame)
+    def _newSwitchForm(self):
+        self._newForm(SwitchForm)
 
-    def newAPOption(self):
-        self.resetFormFrame()
-        apForm = APForm(self.appplication)
-        apForm.createForm(self.appplication.formFrame)
+    def _newAPOption(self):
+        self._newForm(APForm)
 
-    def newStationOption(self):
-        self.resetFormFrame()
-        stationForm = StationForm(self.appplication)
-        stationForm.createForm(self.appplication.formFrame)
+    def _newStationOption(self):
+        self._newForm(StationForm)
 
-    def newLinkOption(self):
+    def _newLinkOption(self):
+        self._newForm(LinkForm)
+
+    def _newForm(self, Form):
         self.resetFormFrame()
-        linkForm = LinkForm(self.appplication)
-        linkForm.createForm(self.appplication.formFrame)
+        form = Form(self.appplication)
+        form.createForm(self.appplication.formFrame)
+
 
