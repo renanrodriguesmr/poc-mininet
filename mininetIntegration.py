@@ -1,62 +1,76 @@
+from mininet.node import Controller
+from mininet.log import setLogLevel, info
+from mn_wifi.node import OVSKernelAP
+from mn_wifi.node import UserAP
+from mn_wifi.cli import CLI
+from mn_wifi.net import Mininet_wifi
+from mn_wifi.link import wmediumd
+from mn_wifi.wmediumdConnector import interference
+
 class Mininet:
     def __init__(self, simulationConfig):
         self.config = simulationConfig
 
     def run(self):
-        print("\nnetwork")
-        print(self.config.network.name)
-        print(self.config.network.noise_th)
-        print(self.config.network.fading_cof)
-        print(self.config.network.model)
-        print(self.config.network.exp)
+        setLogLevel('info')
+        self.topology()
 
-        print("\ncontrollers")
-        for controller in self.config.controllers:
-            print("\n-------")
-            print(controller.name)
+    def topology(self):
 
-        print("\nhosts")
-        for host in self.config.hosts:
-            print("\n-------")
-            print(host.name)
+        # Create a Network
+        net = Mininet_wifi(controller=Controller, accessPoint=UserAP,
+        link=wmediumd,wmediumd_mode=interference,
+        noise_th=self.config.network.noise_th, fading_cof=self.config.network.fading_cof)
 
-
-        print("\nswitches")
-        for switch in self.config.switches:
-            print("\n-------")
-            print(switch.name)
-
-        print("\nacess points")
-        for ap in self.config.aps:
-            print("\n-------")
-            print(ap.name)
-            print(ap.ssid)
-            print(ap.mode)
-            print(ap.channel)
-            print(ap.mac)
-            print(ap.ip)
-            print(ap.position)
-            print(ap.range)
-
-        print("\nstations")
+        # Creating Nodes
+        nodeDict = {}
         for station in self.config.stations:
-            print("\n-------")
-            print(station.name)
-            print(station.min_x)
-            print(station.max_x)
-            print(station.min_y)
-            print(station.max_y)
-            print(station.min_v)
-            print(station.max_v)
-            print(station.bgscan_threshold)
-            print(station.s_inverval)
-            print(station.l_interval)
-            print(station.bgscan_module)
+            nodeDict[station.name] = net.addStation(station.name, 
+                                                    min_x=station.min_x, max_x=station.max_x, 
+                                                    min_y=station.min_y, max_y=station.max_y, 
+                                                    min_v=station.min_v, max_v=station.max_v,
+                                                    bgscan_threshold=station.bgscan_threshold, 
+                                                    s_inverval=station.s_inverval, 
+                                                    l_interval=station.l_interval, 
+                                                    bgscan_module=station.bgscan_module)
 
-        print("\nlinks")
+        
+        for ap in self.config.aps:
+            nodeDict[ap.name] = net.addAccessPoint(ap.name, 
+                                              ssid=ap.ssid, mode=ap.mode, 
+                                              channel=ap.channel, mac=ap.mac, 
+                                              ip=ap.ip,position=ap.position, 
+                                              range=ap.range)
+
+        for switch in self.config.switches:
+            nodeDict[switch.name] = net.addSwitch(switch.name)
+
+        for host in self.config.hosts:
+            nodeDict[host.name] = net.addHost(host.name)
+
+        controllers = []
+        for controller in self.config.controllers:
+            c = net.addController(controller.name, controller=Controller)
+            controllers.append(c)
+
+        net.setPropagationModel(model=self.config.network.model, exp=self.config.network.exp)
+
+        net.configureWifiNodes()
+
         for link in self.config.links:
-            print("\n-------")
-            print(link.element1)
-            print(link.element2)
+            net.addLink(nodeDict[link.element1], nodeDict[link.element2])
 
+        nodes = net.stations
+        net.telemetry(nodes=nodes, single=True)
+        net.build()
 
+        for controller in controllers:
+            controller.start()
+
+        for key in nodeDict:
+            nodeDict[key].start(controllers)
+
+        
+        CLI(net)
+
+        net.stop()
