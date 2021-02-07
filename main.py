@@ -1,4 +1,4 @@
-from tkinter import Tk, Frame
+from tkinter import *
 from configs import SimulationConfig
 from menu import MenuBar
 
@@ -8,11 +8,11 @@ class Application(Tk):
         # Call the constructor of our parent class
         super().__init__()
         # Layout manager
-        self.componentsFrame = Frame(self)
-        self.componentsFrame.grid(row=0, column=0)
+        self.componentsFrame = Frame(self, width=512, height=500)
+        self.componentsFrame.pack(fill=BOTH, side=LEFT, expand=True)
 
-        self.formFrame = Frame(self)
-        self.formFrame.grid(row=0, column=1)
+        self.formFrame = Frame(self, width=512, height=500)
+        self.componentsFrame.pack(fill=BOTH, side=LEFT, expand=True)
 
         menu = MenuBar(self)
         menuBar = menu.setMenu()
@@ -26,15 +26,15 @@ class Application(Tk):
         self.simulationConfig = SimulationConfig(None)
 
     def reloadComponentFrame(self):
-        self.componentsFrame.grid_forget()
-        self.componentsFrame = Frame()
-        self.componentsFrame.grid(row=0, column=0)
+        self.componentsFrame.pack_forget()
+        self.componentsFrame = Frame(self, width=512, height=500)
+        self.componentsFrame.pack(fill=BOTH, side=LEFT, expand=True)
         self.simulationConfig.setInFrame(self.componentsFrame)
 
 
 if __name__ == "__main__":
     app = Application()
     app.title('POC integration Mininet')  # window title
-    app.geometry('1024x500')  # window title
+    app.geometry('1024x500')  # default size
     # this loop allows for event-driven programming
     app.mainloop()
