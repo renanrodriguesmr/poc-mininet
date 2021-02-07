@@ -1,4 +1,4 @@
-from tkinter import Menu, Frame, BOTH, LEFT
+from tkinter import Menu, Frame, BOTH, RIGHT
 from forms import LinkForm, NetworkForm, ControllerForm, HostForm, SwitchForm, APForm, StationForm
 # from mininetIntegration import Mininet
 
@@ -33,7 +33,7 @@ class MenuBar:
     def resetFormFrame(self):
         self.appplication.formFrame.pack_forget()
         self.appplication.formFrame = Frame(self.appplication, width=512, height=500)
-        self.appplication.formFrame.pack(fill=BOTH, side=LEFT, expand=True)
+        self.appplication.formFrame.pack(fill=BOTH, side=RIGHT, expand=True)
 
     def _run(self):
         print("_run")
