@@ -16,6 +16,7 @@ class MenuBar:
         configMenu.add_command(label="New Link", command=self._newLinkOption)
         configMenu.add_separator()
         configMenu.add_command(label="Run Project", command=self._run)
+        configMenu.add_command(label="Stop Project", command=self._stop)
         menuBar.add_cascade(label="Configuration", menu=configMenu)
 
         componentMenu = Menu(menuBar, tearoff=0)
@@ -35,9 +36,12 @@ class MenuBar:
         self.appplication.formFrame.grid(row=0, column=1)
 
     def _run(self):
-        print("_run")
-        mininet = Mininet(self.appplication.simulationConfig)
-        mininet.run()
+        self.appplication.mininet = Mininet(self.appplication.simulationConfig)
+        self.appplication.mininet.run()
+
+    def _stop(self):
+        if self.appplication.mininet is not None:
+            self.appplication.mininet.stop()
 
     def _newProject(self):
         self.appplication.resetConfig()

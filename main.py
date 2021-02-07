@@ -20,6 +20,7 @@ class Application(Tk):
 
         self.resetConfig()
         self.reloadComponentFrame()
+        self.mininet = None
 
     def resetConfig(self):
         self.simulationConfig = SimulationConfig(None)

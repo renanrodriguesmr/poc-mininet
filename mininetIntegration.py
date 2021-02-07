@@ -13,9 +13,13 @@ class Mininet:
 
     def run(self):
         setLogLevel('info')
-        self.topology()
+        self.__topology()
 
-    def topology(self):
+    def stop(self):
+        self.net.stop()
+        self.net = None
+
+    def __topology(self):
 
         # Create a Network
         net = Mininet_wifi(controller=Controller, accessPoint=UserAP,
@@ -87,7 +91,7 @@ class Mininet:
         for key in nodeDict:
             if(nodeDict[key]['type'] != 'host'):
                 nodeDict[key]['value'].start(controllers)
-        
-        CLI(net)
 
-        net.stop()
+        self.net = net
+        CLI(net)
+        self.stop()
