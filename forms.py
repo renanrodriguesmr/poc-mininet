@@ -30,9 +30,6 @@ class LinkForm:
         for ap in self.appplication.simulationConfig.aps:
             values.append(ap.name)
 
-        for station in self.appplication.simulationConfig.stations:
-            values.append(station.name)
-
         return values
 
     def setInitialValues(self):
