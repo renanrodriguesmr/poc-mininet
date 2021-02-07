@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter.ttk import *
+import tkinter.font as tkFont
 from configs import LinkConfig, ControllerConfig, HostConfig, SwitchConfig, APConfig, StationConfig, NetworkConfig, SimulationConfig
 
 class LinkForm:
@@ -9,14 +10,16 @@ class LinkForm:
         self.element2 = StringVar(self.appplication, '')
 
     def createForm(self, formFrame):
-        Label(formFrame, text='element 1: ').grid(row=0, column=0)
-        Combobox(formFrame, values=self.getValues(), textvariable=self.element1).grid(row=0, column=1)
+        Label(formFrame, text='Links', font=tkFont.Font(family="Lucida Grande", size=30)).grid(row=0, column=0)
 
-        Label(formFrame, text='element 2: ').grid(row=1, column=0)
-        Combobox(formFrame, values=self.getValues(), textvariable=self.element2).grid(row=1, column=1)
+        Label(formFrame, text='element 1: ').grid(row=1, column=0)
+        Combobox(formFrame, values=self.getValues(), textvariable=self.element1).grid(row=1, column=1)
 
-        Button(formFrame, text ="submit", command = self.submit).grid(row=2, column=2)
-        Button(formFrame, text ="reset", command = self.resetForm).grid(row=3, column=2)
+        Label(formFrame, text='element 2: ').grid(row=2, column=0)
+        Combobox(formFrame, values=self.getValues(), textvariable=self.element2).grid(row=2, column=1)
+
+        Button(formFrame, text ="submit", command = self.submit).grid(row=3, column=2)
+        Button(formFrame, text ="reset", command = self.resetForm).grid(row=4, column=2)
 
     def getValues(self):
         values = []
@@ -56,23 +59,25 @@ class NetworkForm:
         self.exp = IntVar(self.appplication, 0)
 
     def createForm(self, formFrame):
-        Label(formFrame, text='name').grid(row=0, column=0)
-        Entry(formFrame, textvariable=self.name).grid(row=0, column=1)
+        Label(formFrame, text='Network', font=tkFont.Font(family="Lucida Grande", size=30)).grid(row=0, column=0)
 
-        Label(formFrame, text='noise_th').grid(row=1, column=0)
-        Entry(formFrame, textvariable=self.noise_th).grid(row=1, column=1)
+        Label(formFrame, text='name').grid(row=1, column=0)
+        Entry(formFrame, textvariable=self.name).grid(row=1, column=1)
 
-        Label(formFrame, text='fading_cof').grid(row=2, column=0)
-        Entry(formFrame, textvariable=self.fading_cof).grid(row=2, column=1)
+        Label(formFrame, text='noise_th').grid(row=2, column=0)
+        Entry(formFrame, textvariable=self.noise_th).grid(row=2, column=1)
 
-        Label(formFrame, text='model').grid(row=3, column=0)
-        Entry(formFrame, textvariable=self.model).grid(row=3, column=1)
+        Label(formFrame, text='fading_cof').grid(row=3, column=0)
+        Entry(formFrame, textvariable=self.fading_cof).grid(row=3, column=1)
 
-        Label(formFrame, text='exp').grid(row=4, column=0)
-        Entry(formFrame, textvariable=self.exp).grid(row=4, column=1)
+        Label(formFrame, text='model').grid(row=4, column=0)
+        Entry(formFrame, textvariable=self.model).grid(row=4, column=1)
 
-        Button(formFrame, text ="submit", command = self.submit).grid(row=5, column=2)
-        Button(formFrame, text ="reset", command = self.resetForm).grid(row=6, column=2)
+        Label(formFrame, text='exp').grid(row=5, column=0)
+        Entry(formFrame, textvariable=self.exp).grid(row=5, column=1)
+
+        Button(formFrame, text ="submit", command = self.submit).grid(row=6, column=2)
+        Button(formFrame, text ="reset", command = self.resetForm).grid(row=7, column=2)
 
     def setInitialValues(self):
         self.name.set('')
@@ -97,11 +102,13 @@ class ControllerForm:
         self.name = StringVar(self.appplication, '')
 
     def createForm(self, formFrame):
-        Label(formFrame, text='name').grid(row=0, column=0)
-        Entry(formFrame, textvariable=self.name).grid(row=0, column=1)
+        Label(formFrame, text='Controller', font=tkFont.Font(family="Lucida Grande", size=30)).grid(row=0, column=0)
 
-        Button(formFrame, text ="submit", command = self.submit).grid(row=1, column=2)
-        Button(formFrame, text ="reset", command = self.resetForm).grid(row=2, column=2)
+        Label(formFrame, text='name').grid(row=1, column=0)
+        Entry(formFrame, textvariable=self.name).grid(row=1, column=1)
+
+        Button(formFrame, text ="submit", command = self.submit).grid(row=2, column=2)
+        Button(formFrame, text ="reset", command = self.resetForm).grid(row=3, column=2)
 
     def setInitialValues(self):
         self.name.set('')
@@ -122,11 +129,13 @@ class HostForm:
         self.name = StringVar(self.appplication, '')
 
     def createForm(self, formFrame):
-        Label(formFrame, text='name').grid(row=0, column=0)
-        Entry(formFrame, textvariable=self.name).grid(row=0, column=1)
+        Label(formFrame, text='Host', font=tkFont.Font(family="Lucida Grande", size=30)).grid(row=0, column=0)
 
-        Button(formFrame, text ="submit", command = self.submit).grid(row=1, column=2)
-        Button(formFrame, text ="reset", command = self.resetForm).grid(row=2, column=2)
+        Label(formFrame, text='name').grid(row=1, column=0)
+        Entry(formFrame, textvariable=self.name).grid(row=1, column=1)
+
+        Button(formFrame, text ="submit", command = self.submit).grid(row=2, column=2)
+        Button(formFrame, text ="reset", command = self.resetForm).grid(row=3, column=2)
 
     def setInitialValues(self):
         self.name.set('')
@@ -147,11 +156,13 @@ class SwitchForm:
         self.name = StringVar(self.appplication, '')
 
     def createForm(self, formFrame):
-        Label(formFrame, text='name').grid(row=0, column=0)
-        Entry(formFrame, textvariable=self.name).grid(row=0, column=1)
+        Label(formFrame, text='Switch', font=tkFont.Font(family="Lucida Grande", size=30)).grid(row=0, column=0)
 
-        Button(formFrame, text ="submit", command = self.submit).grid(row=1, column=2)
-        Button(formFrame, text ="reset", command = self.resetForm).grid(row=2, column=2)
+        Label(formFrame, text='name').grid(row=1, column=0)
+        Entry(formFrame, textvariable=self.name).grid(row=1, column=1)
+
+        Button(formFrame, text ="submit", command = self.submit).grid(row=2, column=2)
+        Button(formFrame, text ="reset", command = self.resetForm).grid(row=3, column=2)
 
     def setInitialValues(self):
         self.name.set('')
@@ -179,32 +190,34 @@ class APForm:
         self.range = IntVar(self.appplication, 0)
 
     def createForm(self, formFrame):
-        Label(formFrame, text='name').grid(row=0, column=0)
-        Entry(formFrame, textvariable=self.name).grid(row=0, column=1)
+        Label(formFrame, text='Acess Point', font=tkFont.Font(family="Lucida Grande", size=30)).grid(row=0, column=0)
 
-        Label(formFrame, text='ssid').grid(row=1, column=0)
-        Entry(formFrame, textvariable=self.ssid).grid(row=1, column=1)
+        Label(formFrame, text='name').grid(row=1, column=0)
+        Entry(formFrame, textvariable=self.name).grid(row=1, column=1)
 
-        Label(formFrame, text='mode').grid(row=2, column=0)
-        Entry(formFrame, textvariable=self.mode).grid(row=2, column=1)
+        Label(formFrame, text='ssid').grid(row=2, column=0)
+        Entry(formFrame, textvariable=self.ssid).grid(row=2, column=1)
 
-        Label(formFrame, text='channel').grid(row=3, column=0)
-        Entry(formFrame, textvariable=self.channel).grid(row=3, column=1)
+        Label(formFrame, text='mode').grid(row=3, column=0)
+        Entry(formFrame, textvariable=self.mode).grid(row=3, column=1)
 
-        Label(formFrame, text='mac').grid(row=4, column=0)
-        Entry(formFrame, textvariable=self.mac).grid(row=4, column=1)
+        Label(formFrame, text='channel').grid(row=4, column=0)
+        Entry(formFrame, textvariable=self.channel).grid(row=4, column=1)
 
-        Label(formFrame, text='ip').grid(row=5, column=0)
-        Entry(formFrame, textvariable=self.ip).grid(row=5, column=1)
+        Label(formFrame, text='mac').grid(row=5, column=0)
+        Entry(formFrame, textvariable=self.mac).grid(row=5, column=1)
 
-        Label(formFrame, text='position').grid(row=6, column=0)
-        Entry(formFrame, textvariable=self.position).grid(row=6, column=1)
+        Label(formFrame, text='ip').grid(row=6, column=0)
+        Entry(formFrame, textvariable=self.ip).grid(row=6, column=1)
 
-        Label(formFrame, text='range').grid(row=7, column=0)
-        Entry(formFrame, textvariable=self.range).grid(row=7, column=1)
+        Label(formFrame, text='position').grid(row=7, column=0)
+        Entry(formFrame, textvariable=self.position).grid(row=7, column=1)
 
-        Button(formFrame, text ="submit", command = self.submit).grid(row=8, column=2)
-        Button(formFrame, text ="reset", command = self.resetForm).grid(row=9, column=2)
+        Label(formFrame, text='range').grid(row=8, column=0)
+        Entry(formFrame, textvariable=self.range).grid(row=8, column=1)
+
+        Button(formFrame, text ="submit", command = self.submit).grid(row=9, column=2)
+        Button(formFrame, text ="reset", command = self.resetForm).grid(row=10, column=2)
 
     def setInitialValues(self):
         self.name.set('')
@@ -242,31 +255,42 @@ class StationForm:
         self.bgscan_module = StringVar(self.appplication, '')
 
     def createForm(self, formFrame):
-        Label(formFrame, text='name').grid(row=0, column=0)
-        Entry(formFrame, textvariable=self.name).grid(row=0, column=1)
-        Label(formFrame, text='min_x').grid(row=1, column=0)
-        Entry(formFrame, textvariable=self.min_x).grid(row=1, column=1)
-        Label(formFrame, text='max_x').grid(row=2, column=0)
-        Entry(formFrame, textvariable=self.max_x).grid(row=2, column=1)
-        Label(formFrame, text='min_y').grid(row=3, column=0)
-        Entry(formFrame, textvariable=self.min_y).grid(row=3, column=1)
-        Label(formFrame, text='max_y').grid(row=4, column=0)
-        Entry(formFrame, textvariable=self.max_y).grid(row=4, column=1)
-        Label(formFrame, text='min_v').grid(row=5, column=0)
-        Entry(formFrame, textvariable=self.min_v).grid(row=5, column=1)
-        Label(formFrame, text='max_v').grid(row=6, column=0)
-        Entry(formFrame, textvariable=self.max_v).grid(row=6, column=1)
-        Label(formFrame, text='bgscan_threshold').grid(row=7, column=0)
-        Entry(formFrame, textvariable=self.bgscan_threshold).grid(row=7, column=1)
-        Label(formFrame, text='s_inverval').grid(row=8, column=0)
-        Entry(formFrame, textvariable=self.s_inverval).grid(row=8, column=1)
-        Label(formFrame, text='l_interval').grid(row=9, column=0)
-        Entry(formFrame, textvariable=self.l_interval).grid(row=9, column=1)
-        Label(formFrame, text='bgscan_module').grid(row=10, column=0)
-        Entry(formFrame, textvariable=self.bgscan_module).grid(row=10, column=1)
+        Label(formFrame, text='Station', font=tkFont.Font(family="Lucida Grande", size=30)).grid(row=0, column=0)
 
-        Button(formFrame, text ="submit", command = self.submit).grid(row=11, column=2)
-        Button(formFrame, text ="reset", command = self.resetForm).grid(row=12, column=2)
+        Label(formFrame, text='name').grid(row=1, column=0)
+        Entry(formFrame, textvariable=self.name).grid(row=1, column=1)
+
+        Label(formFrame, text='min_x').grid(row=2, column=0)
+        Entry(formFrame, textvariable=self.min_x).grid(row=2, column=1)
+
+        Label(formFrame, text='max_x').grid(row=3, column=0)
+        Entry(formFrame, textvariable=self.max_x).grid(row=3, column=1)
+
+        Label(formFrame, text='min_y').grid(row=4, column=0)
+        Entry(formFrame, textvariable=self.min_y).grid(row=4, column=1)
+
+        Label(formFrame, text='max_y').grid(row=5, column=0)
+        Entry(formFrame, textvariable=self.max_y).grid(row=5, column=1)
+
+        Label(formFrame, text='min_v').grid(row=6, column=0)
+        Entry(formFrame, textvariable=self.min_v).grid(row=6, column=1)
+
+        Label(formFrame, text='max_v').grid(row=7, column=0)
+        Entry(formFrame, textvariable=self.max_v).grid(row=7, column=1)
+
+        Label(formFrame, text='bgscan_threshold').grid(row=8, column=0)
+        Entry(formFrame, textvariable=self.bgscan_threshold).grid(row=8, column=1)
+
+        Label(formFrame, text='s_inverval').grid(row=9, column=0)
+        Entry(formFrame, textvariable=self.s_inverval).grid(row=9, column=1)
+
+        Label(formFrame, text='l_interval').grid(row=10, column=0)
+        Entry(formFrame, textvariable=self.l_interval).grid(row=10, column=1)
+        Label(formFrame, text='bgscan_module').grid(row=11, column=0)
+        Entry(formFrame, textvariable=self.bgscan_module).grid(row=11, column=1)
+
+        Button(formFrame, text ="submit", command = self.submit).grid(row=12, column=2)
+        Button(formFrame, text ="reset", command = self.resetForm).grid(row=13, column=2)
 
     def setInitialValues(self):
         self.name.set('')
