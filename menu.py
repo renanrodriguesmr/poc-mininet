@@ -1,6 +1,6 @@
 from tkinter import Menu, Frame, BOTH, RIGHT
 from forms import LinkForm, NetworkForm, ControllerForm, HostForm, SwitchForm, APForm, StationForm
-# from mininetIntegration import Mininet
+from mininetIntegration import Mininet
 
 class MenuBar:
     def __init__(self, appplication):
@@ -36,9 +36,8 @@ class MenuBar:
         self.appplication.formFrame.pack(fill=BOTH, side=RIGHT, expand=True)
 
     def _run(self):
-        print("_run")
-        # self.appplication.mininet = Mininet(self.appplication.simulationConfig)
-        # self.appplication.mininet.run()
+        self.appplication.mininet = Mininet(self.appplication.simulationConfig)
+        self.appplication.mininet.run()
 
     def _stop(self):
         if self.appplication.mininet is not None:
